@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+  group String @default("general")
+}
+
+model Lead {
+  id              Int      @id @default(autoincrement())
+  name            String
+  phone           String
+  whatsapp        String?
+  telegram        String?
+  comment         String?
+  objectType      String
+  cleaningType    String
+  area            Int
+  additional      String
+  preferredDate   String
+  priceMin        Int
+  priceMax        Int
+  status          String   @default("new")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
